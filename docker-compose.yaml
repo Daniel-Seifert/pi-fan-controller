@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  fancontrol:
+    build:
+      context: .  # Assumes Dockerfile is in the current directory
+    container_name: fancontrol
+    restart: unless-stopped
+    privileged: true  # Required to access GPIO
+    devices:
+      - /dev/gpiomem
+    volumes:
+      - /sys/class/gpio:/sys/class/gpio
+      - /sys/class/pwm:/sys/class/pwm  # Optional, if using PWM
+      - /sys/devices:/sys/devices
